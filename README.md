@@ -1,4 +1,4 @@
-# delicious_food
+# Delicious Food
 
 A new Flutter project.
 
