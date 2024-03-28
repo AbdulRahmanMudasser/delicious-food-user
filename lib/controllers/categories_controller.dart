@@ -9,6 +9,4 @@ class CategoriesController extends GetxController {
   ].obs;
 
   RxInt selectedCategoryIndex = 4.obs;
-
-
 }

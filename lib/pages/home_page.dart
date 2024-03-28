@@ -1,4 +1,5 @@
 import 'package:delicious_food/controllers/categories_controller.dart';
+import 'package:delicious_food/controllers/detail_page_controller.dart';
 import 'package:delicious_food/styles/app_text_styles.dart';
 import 'package:delicious_food/utils/extensions.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    // CategoriesController categoriesController = Get.put(CategoriesController());
+    // their is a lint over here that this controller is not in used
+    // but this is in use
+    // so, don't remove it
+    CategoriesController categoriesController = Get.put(CategoriesController());
+    DetailPageController detailPageController = Get.put(DetailPageController());
 
     return Scaffold(
       backgroundColor: Colors.white.withOpacity(0.97),
@@ -66,7 +71,7 @@ class _HomePageState extends State<HomePage> {
                 ),
             
                 SizedBox(
-                  height: 3.5.hp,
+                  height: 2.0.hp,
                 ),
             
                 // horizontal list of popular items
@@ -76,20 +81,22 @@ class _HomePageState extends State<HomePage> {
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: [
-                        const ItemVerticalCard(
+                         ItemVerticalCard(
                           itemImage: "assets/images/salad2.png",
                           itemName: "Veggie Taco Hash",
-                          itemDescription: "Zesty, Hearty",
+                          itemKeywords: "Zesty, Hearty",
                           itemPrice: "25",
+                          itemDescription: detailPageController.veggieTacoHashDescription,
                         ),
                         SizedBox(
                           width: 4.0.wp,
                         ),
-                        const ItemVerticalCard(
+                         ItemVerticalCard(
                           itemImage: "assets/images/salad3.png",
                           itemName: "Mix Vegetable Salad",
-                          itemDescription: "Fresh, Colorful",
+                          itemKeywords: "Fresh, Colorful",
                           itemPrice: "28",
+                          itemDescription: detailPageController.mixVegetableSaladDescription,
                         ),
                         SizedBox(
                           width: 4.0.wp,
@@ -100,7 +107,7 @@ class _HomePageState extends State<HomePage> {
                 ),
             
                 SizedBox(
-                  height: 2.5.hp,
+                  height: 2.0.hp,
                 ),
             
                 // vertical list of items

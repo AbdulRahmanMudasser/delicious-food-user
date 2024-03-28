@@ -1,4 +1,4 @@
-import 'package:delicious_food/widgets/curved_bottom_navigation_bar.dart';
+import 'package:delicious_food/pages/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -9,13 +9,13 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const GetMaterialApp(
+    return  GetMaterialApp(
       title: 'Delicious Food',
       debugShowCheckedModeBanner: false,
-      home: CurvedBottomNavigationBar(),
+      home: const LoginPage(),
+      theme: ThemeData(useMaterial3: true),
     );
   }
 }
