@@ -1,20 +1,20 @@
-import 'package:delicious_food/pages/signup_page.dart';
-import 'package:delicious_food/styles/app_text_styles.dart';
+import 'package:delicious_food/pages/login_page.dart';
 import 'package:delicious_food/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../styles/app_text_styles.dart';
 import '../widgets/authentication pages/authentication_prompt_row.dart';
 import '../widgets/reusable_button.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,8 +26,8 @@ class _LoginPageState extends State<LoginPage> {
             left: 0,
             right: 0,
             child: Container(
-              width: 100.0.wp, // 100% of screen
-              height: 50.0.hp, // 50% of screen
+              width: 100.0.wp,  // 100% of screen
+              height: 50.0.hp,  // 50% of screen
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
@@ -76,12 +76,12 @@ class _LoginPageState extends State<LoginPage> {
               borderRadius: BorderRadius.circular(4.5.wp),
               color: Colors.white,
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 4.0.wp, vertical: 4.0.hp),
+                padding: EdgeInsets.symmetric(horizontal: 4.0.wp, vertical: 3.0.hp),
                 child: Column(
                   children: [
                     // login text
                     Text(
-                      "Login",
+                      "Sign Up",
                       style: AppTextStyles.boldDarkLargeTextStyle().copyWith(
                         fontWeight: FontWeight.bold,
                         letterSpacing: 0.8,
@@ -91,6 +91,19 @@ class _LoginPageState extends State<LoginPage> {
 
                     SizedBox(
                       height: 5.0.hp,
+                    ),
+
+                    // email text field
+                    TextField(
+                      decoration: InputDecoration(
+                        hintText: "Name",
+                        prefixIcon: const Icon(Icons.person_outlined),
+                        hintStyle: AppTextStyles.boldDarkSmallTextStyle(),
+                      ),
+                    ),
+
+                    SizedBox(
+                      height: 3.0.hp,
                     ),
 
                     // email text field
@@ -115,25 +128,11 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
 
-                    SizedBox(
-                      height: 4.0.hp,
-                    ),
-
-                    // forgot password text
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: Text(
-                        "Forgot Password?",
-                        style: AppTextStyles.boldDarkSmallTextStyle(),
-                        textAlign: TextAlign.right,
-                      ),
-                    ),
-
                     const Spacer(),
 
                     // login button
                     ReusableButton(
-                      text: "LOGIN",
+                      text: "SIGN UP",
                       onTap: () {},
                     ),
                   ],
@@ -141,17 +140,15 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
           ),
-
-          // don't have an account text
           Positioned(
             left: 0,
             right: 0,
             bottom: 20.0.hp,
             child: AuthenticationPromptRow(
-              firstText: "Don't have an account?",
-              secondText: "Sign Up",
+              firstText: "Already have an account?",
+              secondText: "Login",
               onTap: () => Get.to(
-                () => const SignUpPage(),
+                    () => const LoginPage(),
               ),
             ),
           ),
