@@ -25,7 +25,6 @@ class ItemHorizontalCard extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 1.0.hp, horizontal: 1.5.wp),
         child: Row(
-
           children: [
             Image.asset(
               itemImage,

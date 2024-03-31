@@ -1,5 +1,4 @@
 import 'package:delicious_food/controllers/authentication_controller.dart';
-import 'package:delicious_food/pages/forgot_password_page.dart';
 import 'package:delicious_food/pages/signup_page.dart';
 import 'package:delicious_food/styles/app_text_styles.dart';
 import 'package:delicious_food/utils/extensions.dart';
@@ -9,8 +8,8 @@ import 'package:get/get.dart';
 import '../widgets/authentication pages/authentication_prompt_row.dart';
 import '../widgets/reusable_button.dart';
 
-class LoginPage extends StatelessWidget {
-  LoginPage({super.key});
+class ForgotPasswordPage extends StatelessWidget {
+  ForgotPasswordPage({super.key});
 
   final AuthenticationController authenticationController = Get.put(AuthenticationController());
 
@@ -71,34 +70,28 @@ class LoginPage extends StatelessWidget {
             top: 20.0.hp,
             left: 5.5.wp,
             right: 5.5.wp,
-            height: 50.0.hp,
+            height: 40.0.hp,
             child: Material(
               elevation: 10,
               borderRadius: BorderRadius.circular(4.5.wp),
               color: Colors.white,
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 4.0.wp, vertical: 4.0.hp),
+                padding: EdgeInsets.symmetric(horizontal: 4.0.wp, vertical: 3.0.hp),
                 child: Form(
                   key: _formKey,
                   child: Column(
                     children: [
                       // login text
                       Text(
-                        "Login",
-                        style: AppTextStyles.boldDarkLargeTextStyle().copyWith(
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 0.8,
-                          fontSize: 6.0.wp,
-                        ),
+                        "Forgot Password",
+                        style: AppTextStyles.boldDarkLargeTextStyle(),
                       ),
 
-                      SizedBox(
-                        height: 5.0.hp,
-                      ),
+                      const Spacer(),
 
                       // email text field
                       TextFormField(
-                        controller: authenticationController.loginEmailController,
+                        controller: authenticationController.forgotPasswordEmailController,
                         decoration: InputDecoration(
                           hintText: "Email",
                           prefixIcon: const Icon(Icons.email_outlined),
@@ -113,57 +106,15 @@ class LoginPage extends StatelessWidget {
                         },
                       ),
 
-                      SizedBox(
-                        height: 3.0.hp,
-                      ),
-
-                      // password text field
-                      TextFormField(
-                        controller: authenticationController.loginPasswordController,
-                        decoration: InputDecoration(
-                          hintText: "Password",
-                          prefixIcon: const Icon(Icons.lock_outlined),
-                          hintStyle: AppTextStyles.boldDarkSmallTextStyle(),
-                        ),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "Please Enter Your Password";
-                          } else {
-                            return null;
-                          }
-                        },
-                      ),
-
-                      SizedBox(
-                        height: 4.0.hp,
-                      ),
-
-                      // forgot password text
-                      Align(
-                        alignment: Alignment.bottomRight,
-                        child: GestureDetector(
-                          onTap: () => Get.to(
-                            () => ForgotPasswordPage(),
-                          ),
-                          child: Text(
-                            "Forgot Password?",
-                            style: AppTextStyles.boldDarkSmallTextStyle(),
-                            textAlign: TextAlign.right,
-                          ),
-                        ),
-                      ),
-
                       const Spacer(),
 
-                      // login button
+                      // sign up button
                       ReusableButton(
-                        text: "LOGIN",
+                        text: "SEND EMAIL",
                         onTap: () async {
                           if (_formKey.currentState!.validate()) {
-                            authenticationController.loginUser(
-                              authenticationController.loginEmailController.text,
-                              authenticationController.loginPasswordController.text,
-                            );
+                            authenticationController.recoverPassword(
+                                authenticationController.forgotPasswordEmailController.text);
                           }
                         },
                       ),
@@ -173,15 +124,13 @@ class LoginPage extends StatelessWidget {
               ),
             ),
           ),
-
-          // don't have an account text
           Positioned(
             left: 0,
             right: 0,
             bottom: 20.0.hp,
             child: AuthenticationPromptRow(
               firstText: "Don't have an account?",
-              secondText: "Sign Up",
+              secondText: "Create",
               onTap: () => Get.to(
                 () => SignUpPage(),
               ),

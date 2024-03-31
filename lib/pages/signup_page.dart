@@ -1,3 +1,4 @@
+import 'package:delicious_food/controllers/authentication_controller.dart';
 import 'package:delicious_food/pages/login_page.dart';
 import 'package:delicious_food/utils/extensions.dart';
 import 'package:flutter/material.dart';
@@ -7,14 +8,14 @@ import '../styles/app_text_styles.dart';
 import '../widgets/authentication pages/authentication_prompt_row.dart';
 import '../widgets/reusable_button.dart';
 
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key});
+class SignUpPage extends StatelessWidget {
+  SignUpPage({super.key});
 
-  @override
-  State<SignUpPage> createState() => _SignUpPageState();
-}
+  final AuthenticationController authenticationController = Get.put(AuthenticationController());
 
-class _SignUpPageState extends State<SignUpPage> {
+  // form key - for validation purposes
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,8 +27,8 @@ class _SignUpPageState extends State<SignUpPage> {
             left: 0,
             right: 0,
             child: Container(
-              width: 100.0.wp,  // 100% of screen
-              height: 50.0.hp,  // 50% of screen
+              width: 100.0.wp, // 100% of screen
+              height: 50.0.hp, // 50% of screen
               decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topLeft,
@@ -77,65 +78,100 @@ class _SignUpPageState extends State<SignUpPage> {
               color: Colors.white,
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 4.0.wp, vertical: 3.0.hp),
-                child: Column(
-                  children: [
-                    // login text
-                    Text(
-                      "Sign Up",
-                      style: AppTextStyles.boldDarkLargeTextStyle().copyWith(
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 0.8,
-                        fontSize: 6.0.wp,
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      // login text
+                      Text(
+                        "Sign Up",
+                        style: AppTextStyles.boldDarkLargeTextStyle().copyWith(
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 0.8,
+                          fontSize: 6.0.wp,
+                        ),
                       ),
-                    ),
 
-                    SizedBox(
-                      height: 5.0.hp,
-                    ),
-
-                    // email text field
-                    TextField(
-                      decoration: InputDecoration(
-                        hintText: "Name",
-                        prefixIcon: const Icon(Icons.person_outlined),
-                        hintStyle: AppTextStyles.boldDarkSmallTextStyle(),
+                      SizedBox(
+                        height: 5.0.hp,
                       ),
-                    ),
 
-                    SizedBox(
-                      height: 3.0.hp,
-                    ),
-
-                    // email text field
-                    TextField(
-                      decoration: InputDecoration(
-                        hintText: "Email",
-                        prefixIcon: const Icon(Icons.email_outlined),
-                        hintStyle: AppTextStyles.boldDarkSmallTextStyle(),
+                      // email text field
+                      TextFormField(
+                        controller: authenticationController.signupNameController,
+                        decoration: InputDecoration(
+                          hintText: "Name",
+                          prefixIcon: const Icon(Icons.person_outlined),
+                          hintStyle: AppTextStyles.boldDarkSmallTextStyle(),
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Please Enter Your Name";
+                          } else {
+                            return null;
+                          }
+                        },
                       ),
-                    ),
 
-                    SizedBox(
-                      height: 3.0.hp,
-                    ),
-
-                    // password text field
-                    TextField(
-                      decoration: InputDecoration(
-                        hintText: "Password",
-                        prefixIcon: const Icon(Icons.lock_outlined),
-                        hintStyle: AppTextStyles.boldDarkSmallTextStyle(),
+                      SizedBox(
+                        height: 3.0.hp,
                       ),
-                    ),
 
-                    const Spacer(),
+                      // email text field
+                      TextFormField(
+                        controller: authenticationController.signupEmailController,
+                        decoration: InputDecoration(
+                          hintText: "Email",
+                          prefixIcon: const Icon(Icons.email_outlined),
+                          hintStyle: AppTextStyles.boldDarkSmallTextStyle(),
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Please Enter Your Email";
+                          } else {
+                            return null;
+                          }
+                        },
+                      ),
 
-                    // login button
-                    ReusableButton(
-                      text: "SIGN UP",
-                      onTap: () {},
-                    ),
-                  ],
+                      SizedBox(
+                        height: 3.0.hp,
+                      ),
+
+                      // password text field
+                      TextFormField(
+                        controller: authenticationController.signupPasswordController,
+                        decoration: InputDecoration(
+                          hintText: "Password",
+                          prefixIcon: const Icon(Icons.lock_outlined),
+                          hintStyle: AppTextStyles.boldDarkSmallTextStyle(),
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "Please Enter Your Password";
+                          } else {
+                            return null;
+                          }
+                        },
+                      ),
+
+                      const Spacer(),
+
+                      // sign up button
+                      ReusableButton(
+                        text: "SIGN UP",
+                        onTap: () async {
+                          if (_formKey.currentState!.validate()) {
+                            authenticationController.registerUser(
+                              authenticationController.signupNameController.text,
+                              authenticationController.signupEmailController.text,
+                              authenticationController.signupPasswordController.text,
+                            );
+                          }
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -148,7 +184,7 @@ class _SignUpPageState extends State<SignUpPage> {
               firstText: "Already have an account?",
               secondText: "Login",
               onTap: () => Get.to(
-                    () => const LoginPage(),
+                () => LoginPage(),
               ),
             ),
           ),

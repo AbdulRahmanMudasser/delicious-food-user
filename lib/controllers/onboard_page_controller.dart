@@ -29,7 +29,7 @@ class OnBoardPageController extends GetxController {
   // method to change page
   void nextPage() {
     if (currentPage.value == OnBoardModel.onBoardContents.length - 1) {
-      Get.off(() => const SignUpPage());
+      Get.off(() => SignUpPage());
     } else {
       pageController.nextPage(
         duration: const Duration(milliseconds: 1),

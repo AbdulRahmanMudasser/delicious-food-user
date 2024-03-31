@@ -12,7 +12,7 @@ class ProfilePage extends StatelessWidget {
         title: const Text('Profile Page'),
         leading: IconButton(
           icon: const Icon(Icons.logout_outlined),
-          onPressed: () => Get.to(() => const LoginPage()),
+          onPressed: () => Get.to(() => LoginPage()),
         ),
       ),
       body: const Center(
