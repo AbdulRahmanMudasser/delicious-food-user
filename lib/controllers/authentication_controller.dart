@@ -1,10 +1,13 @@
 import 'package:delicious_food/pages/login_page.dart';
+import 'package:delicious_food/services/firestore_database.dart';
+import 'package:delicious_food/services/shared_preferences.dart';
 import 'package:delicious_food/utils/methods/snackbar_utils.dart';
 import 'package:delicious_food/widgets/curved_bottom_navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:random_string/random_string.dart';
 
 class AuthenticationController extends GetxController {
   // text editing controllers
@@ -37,6 +40,27 @@ class AuthenticationController extends GetxController {
 
       // displaying success snack bar
       SnackBarUtils.showSuccessSnackBar("Success", "Registered Successfully");
+
+      // it will generate a random string
+      // that can be saved as user id
+      String id = randomAlphaNumeric(10);
+
+      Map<String, dynamic> userDetails = {
+        "Id": id,
+        "Name": signupNameController.text,
+        "Email": signupEmailController.text,
+        "Password": signupPasswordController.text,
+        "Wallet": "0",
+      };
+
+      // upload user details on cloud (database)
+      await FireStoreDatabase().uploadUserDetails(userDetails, id);
+
+      // set user details locally on device
+      await SharedPreferencesHelper.setUserId(id);
+      await SharedPreferencesHelper.setUserName(signupNameController.text);
+      await SharedPreferencesHelper.setUserEmail(signupEmailController.text);
+      await SharedPreferencesHelper.setUserWallet("0");
 
       // setting loading indicator to false
       // as our user is registered successfully

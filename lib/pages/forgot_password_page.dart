@@ -2,6 +2,7 @@ import 'package:delicious_food/controllers/authentication_controller.dart';
 import 'package:delicious_food/pages/signup_page.dart';
 import 'package:delicious_food/styles/app_text_styles.dart';
 import 'package:delicious_food/utils/extensions.dart';
+import 'package:delicious_food/widgets/reusable_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -90,20 +91,11 @@ class ForgotPasswordPage extends StatelessWidget {
                       const Spacer(),
 
                       // email text field
-                      TextFormField(
+                      ReusableTextFormField(
                         controller: authenticationController.forgotPasswordEmailController,
-                        decoration: InputDecoration(
-                          hintText: "Email",
-                          prefixIcon: const Icon(Icons.email_outlined),
-                          hintStyle: AppTextStyles.boldDarkSmallTextStyle(),
-                        ),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "Please Enter Your Email";
-                          } else {
-                            return null;
-                          }
-                        },
+                        hintText: "Email",
+                        onEmptyText: "Please Enter Your Email",
+                        icon: Icons.email_outlined,
                       ),
 
                       const Spacer(),
@@ -114,7 +106,8 @@ class ForgotPasswordPage extends StatelessWidget {
                         onTap: () async {
                           if (_formKey.currentState!.validate()) {
                             authenticationController.recoverPassword(
-                                authenticationController.forgotPasswordEmailController.text);
+                              authenticationController.forgotPasswordEmailController.text,
+                            );
                           }
                         },
                       ),

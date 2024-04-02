@@ -115,7 +115,7 @@ class DetailPage extends StatelessWidget {
                 children: [
                   Text(
                     "Delivery Time",
-                    style: AppTextStyles.boldDarkSmallTextStyle().copyWith(fontSize: 4.0.wp),
+                    style: AppTextStyles.boldDarkSmallTextStyle().copyWith(fontSize: 12.0.sp),
                   ),
                   Row(
                     children: [
@@ -130,7 +130,7 @@ class DetailPage extends StatelessWidget {
                       Text(
                         "30 min",
                         style: AppTextStyles.boldDarkSmallTextStyle().copyWith(
-                          fontSize: 4.0.wp,
+                          fontSize: 12.0.sp,
                         ),
                       ),
                     ],

@@ -12,7 +12,7 @@ class BottomNavigationBarController extends GetxController {
   RxList<Widget> pages = [
     const HomePage(),
     const OrderPage(),
-    const WalletPage(),
+    WalletPage(),
     const ProfilePage(),
   ].obs;
 

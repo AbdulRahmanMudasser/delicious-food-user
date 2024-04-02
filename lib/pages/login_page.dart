@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 
 import '../widgets/authentication pages/authentication_prompt_row.dart';
 import '../widgets/reusable_button.dart';
+import '../widgets/reusable_text_form_field.dart';
 
 class LoginPage extends StatelessWidget {
   LoginPage({super.key});
@@ -88,7 +89,7 @@ class LoginPage extends StatelessWidget {
                         style: AppTextStyles.boldDarkLargeTextStyle().copyWith(
                           fontWeight: FontWeight.bold,
                           letterSpacing: 0.8,
-                          fontSize: 6.0.wp,
+                          fontSize: 17.6.sp,
                         ),
                       ),
 
@@ -97,20 +98,11 @@ class LoginPage extends StatelessWidget {
                       ),
 
                       // email text field
-                      TextFormField(
+                      ReusableTextFormField(
                         controller: authenticationController.loginEmailController,
-                        decoration: InputDecoration(
-                          hintText: "Email",
-                          prefixIcon: const Icon(Icons.email_outlined),
-                          hintStyle: AppTextStyles.boldDarkSmallTextStyle(),
-                        ),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "Please Enter Your Email";
-                          } else {
-                            return null;
-                          }
-                        },
+                        hintText: "Email",
+                        onEmptyText: "Please Enter Your Email",
+                        icon: Icons.email_outlined,
                       ),
 
                       SizedBox(
@@ -118,20 +110,11 @@ class LoginPage extends StatelessWidget {
                       ),
 
                       // password text field
-                      TextFormField(
+                      ReusableTextFormField(
                         controller: authenticationController.loginPasswordController,
-                        decoration: InputDecoration(
-                          hintText: "Password",
-                          prefixIcon: const Icon(Icons.lock_outlined),
-                          hintStyle: AppTextStyles.boldDarkSmallTextStyle(),
-                        ),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "Please Enter Your Password";
-                          } else {
-                            return null;
-                          }
-                        },
+                        hintText: "Password",
+                        onEmptyText: "Please Enter Your Password",
+                        icon: Icons.lock_outlined,
                       ),
 
                       SizedBox(

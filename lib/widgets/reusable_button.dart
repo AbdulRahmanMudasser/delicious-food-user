@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../styles/app_text_styles.dart';
 
 class ReusableButton extends StatelessWidget {
-  ReusableButton({
+  const ReusableButton({
     super.key,
     required this.onTap,
     required this.text,

@@ -1,6 +1,7 @@
 import 'package:delicious_food/controllers/authentication_controller.dart';
 import 'package:delicious_food/pages/login_page.dart';
 import 'package:delicious_food/utils/extensions.dart';
+import 'package:delicious_food/widgets/reusable_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -87,8 +88,8 @@ class SignUpPage extends StatelessWidget {
                         "Sign Up",
                         style: AppTextStyles.boldDarkLargeTextStyle().copyWith(
                           fontWeight: FontWeight.bold,
-                          letterSpacing: 0.8,
-                          fontSize: 6.0.wp,
+                          // letterSpacing: 0.8,
+                          fontSize: 17.5.sp,
                         ),
                       ),
 
@@ -97,20 +98,11 @@ class SignUpPage extends StatelessWidget {
                       ),
 
                       // email text field
-                      TextFormField(
+                      ReusableTextFormField(
                         controller: authenticationController.signupNameController,
-                        decoration: InputDecoration(
-                          hintText: "Name",
-                          prefixIcon: const Icon(Icons.person_outlined),
-                          hintStyle: AppTextStyles.boldDarkSmallTextStyle(),
-                        ),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "Please Enter Your Name";
-                          } else {
-                            return null;
-                          }
-                        },
+                        hintText: "Name",
+                        onEmptyText: "Please Enter Your Name",
+                        icon: Icons.person_outlined,
                       ),
 
                       SizedBox(
@@ -118,20 +110,11 @@ class SignUpPage extends StatelessWidget {
                       ),
 
                       // email text field
-                      TextFormField(
+                      ReusableTextFormField(
                         controller: authenticationController.signupEmailController,
-                        decoration: InputDecoration(
-                          hintText: "Email",
-                          prefixIcon: const Icon(Icons.email_outlined),
-                          hintStyle: AppTextStyles.boldDarkSmallTextStyle(),
-                        ),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "Please Enter Your Email";
-                          } else {
-                            return null;
-                          }
-                        },
+                        hintText: "Email",
+                        onEmptyText: "Please Enter Your Email",
+                        icon: Icons.email_outlined,
                       ),
 
                       SizedBox(
@@ -139,20 +122,11 @@ class SignUpPage extends StatelessWidget {
                       ),
 
                       // password text field
-                      TextFormField(
+                      ReusableTextFormField(
                         controller: authenticationController.signupPasswordController,
-                        decoration: InputDecoration(
-                          hintText: "Password",
-                          prefixIcon: const Icon(Icons.lock_outlined),
-                          hintStyle: AppTextStyles.boldDarkSmallTextStyle(),
-                        ),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "Please Enter Your Password";
-                          } else {
-                            return null;
-                          }
-                        },
+                        hintText: "Password",
+                        onEmptyText: "Please Enter Your Password",
+                        icon: Icons.lock_outlined,
                       ),
 
                       const Spacer(),

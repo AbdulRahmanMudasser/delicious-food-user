@@ -78,7 +78,7 @@ class ItemVerticalCard extends StatelessWidget {
                     Text(
                       itemKeywords,
                       style: AppTextStyles.boldLightSmallTextStyle().copyWith(
-                        fontSize: 3.2.wp,
+                        fontSize: 9.6.sp,
                       ),
                     ),
                     SizedBox(
@@ -87,7 +87,7 @@ class ItemVerticalCard extends StatelessWidget {
                     Text(
                       "\$$itemPrice",
                       style: AppTextStyles.boldDarkMediumTextStyle().copyWith(
-                        fontSize: 4.4.wp,
+                        fontSize: 13.5.sp,
                       ),
                     ),
                   ],
