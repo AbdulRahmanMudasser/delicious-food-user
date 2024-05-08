@@ -1,16 +1,15 @@
 import 'package:delicious_food/controllers/wallet_controller.dart';
 import 'package:delicious_food/styles/app_text_styles.dart';
 import 'package:delicious_food/utils/extensions.dart';
+import 'package:delicious_food/utils/methods/alert_dialogs.dart';
 import 'package:delicious_food/utils/methods/sized_box_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../widgets/wallet page/add_money_token.dart';
 
-class WalletPage extends StatelessWidget {
+class WalletPage extends GetView<WalletController> {
   WalletPage({super.key});
-
-  final WalletController walletController = Get.put(WalletController());
 
   final List<int> moneyTokens = [5, 10, 25, 50, 100, 200, 500, 1000, 2000];
 
@@ -18,7 +17,7 @@ class WalletPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: walletController.wallet == null
+        child: controller.wallet.value.isEmpty
             ? const Center(
                 child: CircularProgressIndicator(),
               )
@@ -44,7 +43,7 @@ class WalletPage extends StatelessWidget {
                   ),
                   Container(
                     width: Get.width,
-                    padding: EdgeInsets.symmetric(horizontal: 3.0.wp, vertical: 1.0.hp),
+                    padding: EdgeInsets.symmetric(horizontal: 4.0.wp, vertical: 1.0.hp),
                     decoration: const BoxDecoration(
                       color: Color(0xFFF2F2F2),
                     ),
@@ -67,9 +66,8 @@ class WalletPage extends StatelessWidget {
                             addVerticalSpace(0.1.hp),
                             Obx(
                               () => Text(
-                                "\$${int.parse(walletController.wallet!.value)}",
-                                style: AppTextStyles.boldDarkMediumTextStyle()
-                                    .copyWith(fontSize: 15.6.sp),
+                                "\$${int.parse(controller.wallet.value)}",
+                                style: AppTextStyles.boldDarkMediumTextStyle().copyWith(fontSize: 15.6.sp),
                               ),
                             ),
                           ],
@@ -99,7 +97,7 @@ class WalletPage extends StatelessWidget {
                         moneyTokens.length,
                         (index) => AddMoneyToken(
                           money: moneyTokens[index],
-                          onTap: () => walletController.addMoneyToWallet(
+                          onTap: () => controller.addMoneyToWallet(
                             moneyTokens[index].toString(),
                           ),
                         ),
@@ -110,7 +108,7 @@ class WalletPage extends StatelessWidget {
                     height: 5.0.hp,
                   ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () => AlertDialogs.inputAlertDialog(),
                     child: Container(
                       margin: EdgeInsets.symmetric(horizontal: 6.0.wp),
                       padding: EdgeInsets.symmetric(
@@ -124,12 +122,14 @@ class WalletPage extends StatelessWidget {
                       ),
                       child: Text(
                         "Add Money",
-                        style: AppTextStyles.boldDarkMediumTextStyle()
-                            .copyWith(color: Colors.white, fontSize: 4.2.wp),
+                        style: AppTextStyles.boldDarkMediumTextStyle().copyWith(
+                          color: Colors.white,
+                          fontSize: 4.2.wp,
+                        ),
                         textAlign: TextAlign.center,
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
       ),

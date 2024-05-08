@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import '../widgets/detail page/add_to_cart_button.dart';
 import '../widgets/detail page/increment_decrement_button.dart';
 
-class DetailPage extends StatelessWidget {
+class DetailPage extends GetView<DetailPageController> {
   const DetailPage({
     super.key,
     required this.itemImage,
@@ -23,8 +23,6 @@ class DetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DetailPageController detailPageController = Get.find();
-
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -71,7 +69,7 @@ class DetailPage extends StatelessWidget {
                   Row(
                     children: [
                       IncrementDecrementButton(
-                        onTap: () => detailPageController.decrementProductCount(),
+                        onTap: () => controller.decrementProductCount(),
                         icon: Icons.remove,
                       ),
                       const SizedBox(
@@ -81,7 +79,7 @@ class DetailPage extends StatelessWidget {
                         () => SizedBox(
                           width: 30,
                           child: Text(
-                            "${detailPageController.productCount.value}",
+                            "${controller.productCount.value}",
                             style: AppTextStyles.boldDarkSmallTextStyle(),
                             textAlign: TextAlign.center,
                           ),
@@ -91,7 +89,7 @@ class DetailPage extends StatelessWidget {
                         width: 10,
                       ),
                       IncrementDecrementButton(
-                        onTap: () => detailPageController.incrementProductCount(),
+                        onTap: () => controller.incrementProductCount(),
                         icon: Icons.add,
                       ),
                     ],
@@ -129,9 +127,7 @@ class DetailPage extends StatelessWidget {
                       ),
                       Text(
                         "30 min",
-                        style: AppTextStyles.boldDarkSmallTextStyle().copyWith(
-                          fontSize: 12.0.sp,
-                        ),
+                        style: AppTextStyles.boldDarkSmallTextStyle().copyWith(fontSize: 12.0.sp),
                       ),
                     ],
                   ),
@@ -150,7 +146,7 @@ class DetailPage extends StatelessWidget {
                       ),
                       Obx(
                         () => Text(
-                          "\$${detailPageController.totalPrice.value}",
+                          "\$${controller.totalPrice.value}",
                           style: AppTextStyles.boldDarkLargeTextStyle(),
                         ),
                       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../pages/home_page.dart';
@@ -18,5 +19,19 @@ class BottomNavigationBarController extends GetxController {
 
   void changePage(int index) {
     currentIndex.value = index;
+  }
+
+  /// Change Status Bar Icons Color
+  _changeUIStyle() {
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(statusBarIconBrightness: Brightness.dark),
+    );
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+
+    _changeUIStyle();
   }
 }

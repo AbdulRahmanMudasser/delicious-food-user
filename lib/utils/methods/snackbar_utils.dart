@@ -1,3 +1,4 @@
+import 'package:delicious_food/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -7,10 +8,11 @@ class SnackBarUtils {
     Get.snackbar(
       title,
       message,
-      backgroundColor: const Color(0xFFFF5722),
+      backgroundColor: Colors.black,
       snackPosition: SnackPosition.BOTTOM,
       colorText: Colors.white,
-      duration: const Duration(seconds: 3),
+      duration: const Duration(seconds: 5),
+      margin: EdgeInsets.only(bottom: 5.0.hp, left: 1.5.wp, right: 1.5.wp),
     );
   }
 
@@ -21,8 +23,9 @@ class SnackBarUtils {
       message,
       snackPosition: SnackPosition.BOTTOM,
       colorText: Colors.white,
-      backgroundColor: Colors.red,
+      backgroundColor: Colors.black,
       duration: const Duration(seconds: 3),
+      margin: EdgeInsets.only(bottom: 5.0.hp, left: 1.5.wp, right: 1.5.wp),
     );
   }
 }

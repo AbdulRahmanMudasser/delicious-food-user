@@ -1,4 +1,3 @@
-import 'package:delicious_food/controllers/categories_controller.dart';
 import 'package:delicious_food/controllers/detail_page_controller.dart';
 import 'package:delicious_food/styles/app_text_styles.dart';
 import 'package:delicious_food/utils/extensions.dart';
@@ -10,22 +9,11 @@ import '../widgets/home page/item_horizontal_card.dart';
 import '../widgets/home page/item_vertical_card.dart';
 import '../widgets/home page/top_row.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  @override
   Widget build(BuildContext context) {
-    // their is a lint over here that this controller is not in used
-    // but this is in use
-    // so, don't remove it
-    CategoriesController categoriesController = Get.put(CategoriesController());
-    DetailPageController detailPageController = Get.put(DetailPageController());
-
     return Scaffold(
       backgroundColor: Colors.white.withOpacity(0.97),
       body: SafeArea(
@@ -86,7 +74,7 @@ class _HomePageState extends State<HomePage> {
                           itemName: "Veggie Taco Hash",
                           itemKeywords: "Zesty, Hearty",
                           itemPrice: "25",
-                          itemDescription: detailPageController.veggieTacoHashDescription,
+                          itemDescription: Get.find<DetailPageController>().veggieTacoHashDescription,
                         ),
                         SizedBox(
                           width: 4.0.wp,
@@ -96,7 +84,7 @@ class _HomePageState extends State<HomePage> {
                           itemName: "Mix Vegetable Salad",
                           itemKeywords: "Fresh, Colorful",
                           itemPrice: "28",
-                          itemDescription: detailPageController.mixVegetableSaladDescription,
+                          itemDescription: Get.find<DetailPageController>().mixVegetableSaladDescription,
                         ),
                         SizedBox(
                           width: 4.0.wp,
@@ -112,44 +100,45 @@ class _HomePageState extends State<HomePage> {
 
                 // vertical list of items
                 Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 4.0.wp),
-                    child: Column(
-                      children: [
-                        const ItemHorizontalCard(
-                          itemImage: "assets/images/meat-chicken-mushroom-pizza.png",
-                          itemName: "Meat Mushroom Pizza",
-                          itemDescription: "Savory, Spicy, Classic",
-                          itemPrice: "30",
-                        ),
-                        SizedBox(
-                          height: 1.0.hp,
-                        ),
-                        const ItemHorizontalCard(
-                          itemImage: "assets/images/vegetarian-mushroom-pizza.png",
-                          itemName: "Vegetarian Mushroom Pizza",
-                          itemDescription: "Flavorful, Fresh",
-                          itemPrice: "28",
-                        ),
-                        SizedBox(
-                          height: 1.0.hp,
-                        ),
-                        const ItemHorizontalCard(
-                          itemImage: "assets/images/sliced-pepproni-pizza.jpg",
-                          itemName: "Thinly Sliced Pepperoni Pizza",
-                          itemDescription: "Thin, Crispy, Spicy",
-                          itemPrice: "36",
-                        ),
-                        SizedBox(
-                          height: 1.0.hp,
-                        ),
-                        const ItemHorizontalCard(
-                          itemImage: "assets/images/mushrooms-ham-cheese-pizza.png",
-                          itemName: "Ham Cheese Pizza",
-                          itemDescription: "Juicy, Melty, Delicious",
-                          itemPrice: "42",
-                        ),
-                      ],
-                    )),
+                  padding: EdgeInsets.symmetric(horizontal: 4.0.wp),
+                  child: Column(
+                    children: [
+                      const ItemHorizontalCard(
+                        itemImage: "assets/images/meat-chicken-mushroom-pizza.png",
+                        itemName: "Meat Mushroom Pizza",
+                        itemDescription: "Savory, Spicy, Classic",
+                        itemPrice: "30",
+                      ),
+                      SizedBox(
+                        height: 1.0.hp,
+                      ),
+                      const ItemHorizontalCard(
+                        itemImage: "assets/images/vegetarian-mushroom-pizza.png",
+                        itemName: "Vegetarian Mushroom Pizza",
+                        itemDescription: "Flavorful, Fresh",
+                        itemPrice: "28",
+                      ),
+                      SizedBox(
+                        height: 1.0.hp,
+                      ),
+                      const ItemHorizontalCard(
+                        itemImage: "assets/images/sliced-pepproni-pizza.jpg",
+                        itemName: "Thinly Sliced Pepperoni Pizza",
+                        itemDescription: "Thin, Crispy, Spicy",
+                        itemPrice: "36",
+                      ),
+                      SizedBox(
+                        height: 1.0.hp,
+                      ),
+                      const ItemHorizontalCard(
+                        itemImage: "assets/images/mushrooms-ham-cheese-pizza.png",
+                        itemName: "Ham Cheese Pizza",
+                        itemDescription: "Juicy, Melty, Delicious",
+                        itemPrice: "42",
+                      ),
+                    ],
+                  ),
+                ),
 
                 SizedBox(
                   height: 2.0.hp,

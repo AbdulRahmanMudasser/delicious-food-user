@@ -9,10 +9,8 @@ import '../styles/app_text_styles.dart';
 import '../widgets/authentication pages/authentication_prompt_row.dart';
 import '../widgets/reusable_button.dart';
 
-class SignUpPage extends StatelessWidget {
+class SignUpPage extends GetView<AuthenticationController> {
   SignUpPage({super.key});
-
-  final AuthenticationController authenticationController = Get.put(AuthenticationController());
 
   // form key - for validation purposes
   final _formKey = GlobalKey<FormState>();
@@ -78,7 +76,7 @@ class SignUpPage extends StatelessWidget {
               borderRadius: BorderRadius.circular(4.5.wp),
               color: Colors.white,
               child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 4.0.wp, vertical: 3.0.hp),
+                padding: EdgeInsets.symmetric(horizontal: 4.0.wp, vertical: 2.5.hp),
                 child: Form(
                   key: _formKey,
                   child: Column(
@@ -94,36 +92,36 @@ class SignUpPage extends StatelessWidget {
                       ),
 
                       SizedBox(
-                        height: 5.0.hp,
+                        height: 3.0.hp,
                       ),
 
                       // email text field
                       ReusableTextFormField(
-                        controller: authenticationController.signupNameController,
+                        controller: controller.signupNameController,
                         hintText: "Name",
                         onEmptyText: "Please Enter Your Name",
                         icon: Icons.person_outlined,
                       ),
 
                       SizedBox(
-                        height: 3.0.hp,
+                        height: 3.5.hp,
                       ),
 
                       // email text field
                       ReusableTextFormField(
-                        controller: authenticationController.signupEmailController,
+                        controller: controller.signupEmailController,
                         hintText: "Email",
                         onEmptyText: "Please Enter Your Email",
                         icon: Icons.email_outlined,
                       ),
 
                       SizedBox(
-                        height: 3.0.hp,
+                        height: 3.5.hp,
                       ),
 
                       // password text field
                       ReusableTextFormField(
-                        controller: authenticationController.signupPasswordController,
+                        controller: controller.signupPasswordController,
                         hintText: "Password",
                         onEmptyText: "Please Enter Your Password",
                         icon: Icons.lock_outlined,
@@ -135,11 +133,13 @@ class SignUpPage extends StatelessWidget {
                       ReusableButton(
                         text: "SIGN UP",
                         onTap: () async {
+                          controller.closeKeyboard();
+
                           if (_formKey.currentState!.validate()) {
-                            authenticationController.registerUser(
-                              authenticationController.signupNameController.text,
-                              authenticationController.signupEmailController.text,
-                              authenticationController.signupPasswordController.text,
+                            controller.registerUser(
+                              controller.signupNameController.text,
+                              controller.signupEmailController.text,
+                              controller.signupPasswordController.text,
                             );
                           }
                         },
@@ -157,9 +157,10 @@ class SignUpPage extends StatelessWidget {
             child: AuthenticationPromptRow(
               firstText: "Already have an account?",
               secondText: "Login",
-              onTap: () => Get.to(
-                () => LoginPage(),
-              ),
+              onTap: () {
+                controller.closeKeyboard();
+                Get.to(() => LoginPage());
+              },
             ),
           ),
         ],
