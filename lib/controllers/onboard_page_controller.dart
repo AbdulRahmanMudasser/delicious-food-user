@@ -1,9 +1,9 @@
 import 'package:delicious_food/models/onboard_model.dart';
-import 'package:delicious_food/pages/signup_page.dart';
+import 'package:delicious_food/pages/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class OnBoardPageController extends GetxController {
+class OnBoardController extends GetxController {
   RxInt currentPage = 0.obs;
   late PageController pageController;
 
@@ -29,7 +29,7 @@ class OnBoardPageController extends GetxController {
   // method to change page
   void nextPage() {
     if (currentPage.value == OnBoardModel.onBoardContents.length - 1) {
-      Get.off(() => SignUpPage());
+      Get.off(() => LoginPage());
     } else {
       pageController.nextPage(
         duration: const Duration(milliseconds: 1),

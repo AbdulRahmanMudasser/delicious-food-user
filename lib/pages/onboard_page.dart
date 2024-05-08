@@ -8,17 +8,15 @@ import 'package:get/get.dart';
 
 import '../widgets/dot_indicator.dart';
 
-class OnBoardPage extends StatelessWidget {
+class OnBoardPage extends GetView<OnBoardController> {
   const OnBoardPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    OnBoardPageController onBoardPageController = Get.put(OnBoardPageController());
-
     return Scaffold(
       body: PageView.builder(
-        controller: onBoardPageController.pageController,
-        onPageChanged: (value) => onBoardPageController.onPageChanged(value),
+        controller: controller.pageController,
+        onPageChanged: (value) => controller.onPageChanged(value),
         itemCount: OnBoardModel.onBoardContents.length,
         itemBuilder: (context, index) {
           return Padding(
@@ -74,7 +72,7 @@ class OnBoardPage extends StatelessWidget {
                             OnBoardModel.onBoardContents.length,
                             (index) => DotIndicator(
                               index: index,
-                              currentPageIndex: onBoardPageController.currentPage.value,
+                              currentPageIndex: controller.currentPage.value,
                             ),
                           ),
                         ),
@@ -86,13 +84,12 @@ class OnBoardPage extends StatelessWidget {
                       Obx(
                         () => ReusableButton(
                           onTap: () {
-                            onBoardPageController.nextPage();
+                            controller.nextPage();
 
-                            debugPrint("${onBoardPageController.currentPage.value}");
+                            debugPrint("${controller.currentPage.value}");
                             debugPrint("${OnBoardModel.onBoardContents.length - 1}");
                           },
-                          text: onBoardPageController.currentPage.value ==
-                                  OnBoardModel.onBoardContents.length - 1
+                          text: controller.currentPage.value == OnBoardModel.onBoardContents.length - 1
                               ? "Start"
                               : "Next",
                           verticalPadding: 1.7,

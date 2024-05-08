@@ -9,10 +9,8 @@ import 'package:get/get.dart';
 import '../widgets/authentication pages/authentication_prompt_row.dart';
 import '../widgets/reusable_button.dart';
 
-class ForgotPasswordPage extends StatelessWidget {
+class ForgotPasswordPage extends GetView<AuthenticationController> {
   ForgotPasswordPage({super.key});
-
-  final AuthenticationController authenticationController = Get.put(AuthenticationController());
 
   final _formKey = GlobalKey<FormState>();
 
@@ -92,7 +90,7 @@ class ForgotPasswordPage extends StatelessWidget {
 
                       // email text field
                       ReusableTextFormField(
-                        controller: authenticationController.forgotPasswordEmailController,
+                        controller: controller.forgotPasswordEmailController,
                         hintText: "Email",
                         onEmptyText: "Please Enter Your Email",
                         icon: Icons.email_outlined,
@@ -104,9 +102,11 @@ class ForgotPasswordPage extends StatelessWidget {
                       ReusableButton(
                         text: "SEND EMAIL",
                         onTap: () async {
+                          controller.closeKeyboard();
+
                           if (_formKey.currentState!.validate()) {
-                            authenticationController.recoverPassword(
-                              authenticationController.forgotPasswordEmailController.text,
+                            controller.recoverPassword(
+                              controller.forgotPasswordEmailController.text,
                             );
                           }
                         },
@@ -122,12 +122,13 @@ class ForgotPasswordPage extends StatelessWidget {
             right: 0,
             bottom: 20.0.hp,
             child: AuthenticationPromptRow(
-              firstText: "Don't have an account?",
-              secondText: "Create",
-              onTap: () => Get.to(
-                () => SignUpPage(),
-              ),
-            ),
+                firstText: "Don't have an account?",
+                secondText: "Create",
+                onTap: () {
+                  controller.closeKeyboard();
+
+                  Get.to(() => SignUpPage());
+                }),
           ),
         ],
       ),

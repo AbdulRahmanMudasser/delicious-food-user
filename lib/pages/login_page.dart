@@ -10,10 +10,8 @@ import '../widgets/authentication pages/authentication_prompt_row.dart';
 import '../widgets/reusable_button.dart';
 import '../widgets/reusable_text_form_field.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends GetView<AuthenticationController> {
   LoginPage({super.key});
-
-  final AuthenticationController authenticationController = Get.put(AuthenticationController());
 
   final _formKey = GlobalKey<FormState>();
 
@@ -94,12 +92,12 @@ class LoginPage extends StatelessWidget {
                       ),
 
                       SizedBox(
-                        height: 5.0.hp,
+                        height: 4.5.hp,
                       ),
 
                       // email text field
                       ReusableTextFormField(
-                        controller: authenticationController.loginEmailController,
+                        controller: controller.loginEmailController,
                         hintText: "Email",
                         onEmptyText: "Please Enter Your Email",
                         icon: Icons.email_outlined,
@@ -111,7 +109,7 @@ class LoginPage extends StatelessWidget {
 
                       // password text field
                       ReusableTextFormField(
-                        controller: authenticationController.loginPasswordController,
+                        controller: controller.loginPasswordController,
                         hintText: "Password",
                         onEmptyText: "Please Enter Your Password",
                         icon: Icons.lock_outlined,
@@ -125,9 +123,10 @@ class LoginPage extends StatelessWidget {
                       Align(
                         alignment: Alignment.bottomRight,
                         child: GestureDetector(
-                          onTap: () => Get.to(
-                            () => ForgotPasswordPage(),
-                          ),
+                          onTap: () {
+                            controller.closeKeyboard();
+                            Get.to(() => ForgotPasswordPage());
+                          },
                           child: Text(
                             "Forgot Password?",
                             style: AppTextStyles.boldDarkSmallTextStyle(),
@@ -142,10 +141,12 @@ class LoginPage extends StatelessWidget {
                       ReusableButton(
                         text: "LOGIN",
                         onTap: () async {
+                          controller.closeKeyboard();
+
                           if (_formKey.currentState!.validate()) {
-                            authenticationController.loginUser(
-                              authenticationController.loginEmailController.text,
-                              authenticationController.loginPasswordController.text,
+                            controller.loginUser(
+                              controller.loginEmailController.text,
+                              controller.loginPasswordController.text,
                             );
                           }
                         },
@@ -163,12 +164,12 @@ class LoginPage extends StatelessWidget {
             right: 0,
             bottom: 20.0.hp,
             child: AuthenticationPromptRow(
-              firstText: "Don't have an account?",
-              secondText: "Sign Up",
-              onTap: () => Get.to(
-                () => SignUpPage(),
-              ),
-            ),
+                firstText: "Don't have an account?",
+                secondText: "Sign Up",
+                onTap: () {
+                  controller.closeKeyboard();
+                  Get.to(() => SignUpPage());
+                }),
           ),
         ],
       ),

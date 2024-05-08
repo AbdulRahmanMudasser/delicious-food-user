@@ -6,10 +6,24 @@ import 'package:delicious_food/widgets/curved_bottom_navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:random_string/random_string.dart';
 
 class AuthenticationController extends GetxController {
+  @override
+  void onInit() {
+    super.onInit();
+
+    _changeSystemUIStyle();
+  }
+
+  _changeSystemUIStyle() {
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(statusBarIconBrightness: Brightness.light),
+    );
+  }
+
   // text editing controllers
   TextEditingController signupNameController = TextEditingController();
   TextEditingController signupEmailController = TextEditingController();
@@ -67,9 +81,7 @@ class AuthenticationController extends GetxController {
       isLoading.value = false;
 
       // navigate to home page
-      Get.offAll(
-        () => const CurvedBottomNavigationBar(),
-      );
+      Get.offAll(() => const CurvedBottomNavigationBar());
     } on FirebaseAuthException catch (exception) {
       // setting loading indicator to false
       // as some exception has occurred
@@ -80,8 +92,9 @@ class AuthenticationController extends GetxController {
       } else if (exception.code == 'email-already-in-use') {
         SnackBarUtils.showErrorSnackBar("Error", "Account Already Exists");
       } else if (exception.code == 'operation-not-allowed') {
-        SnackBarUtils.showErrorSnackBar(
-            "Error", "Enable Email/Password Accounts In The Firebase Console");
+        SnackBarUtils.showErrorSnackBar("Error", "Enable Email/Password Accounts In The Firebase Console");
+      } else if (exception.code == 'invalid-email') {
+        SnackBarUtils.showErrorSnackBar("Error", "Please Enter A Valid Email");
       }
     }
   } // end of registerUser()
@@ -134,22 +147,33 @@ class AuthenticationController extends GetxController {
     } on FirebaseAuthException catch (exception) {
       if (exception.code == 'user-not-found') {
         SnackBarUtils.showErrorSnackBar("Error", "No Account Found With This Email");
+      } else if (exception.code == 'invalid-email') {
+        SnackBarUtils.showErrorSnackBar("Error", "Please Enter A Valid Email");
+      } else {
+        SnackBarUtils.showErrorSnackBar("Error", exception.toString());
       }
     }
+  }
+
+  /// Method to close opened keyboard
+  closeKeyboard() {
+    FocusScope.of(Get.context!).unfocus();
   }
 
   // dispose the controllers
   @override
   void onClose() {
+    _disposeControllers();
+    super.onClose();
+  }
+
+  /// Dispose Controllers
+  void _disposeControllers() {
     signupNameController.dispose();
     signupEmailController.dispose();
     signupPasswordController.dispose();
-
     loginEmailController.dispose();
     loginPasswordController.dispose();
-
     forgotPasswordEmailController.dispose();
-
-    super.onClose();
   }
 }
