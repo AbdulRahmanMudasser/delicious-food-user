@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get/get.dart';
 
 class FireStoreDatabase {
   // instance of firestore database
@@ -17,4 +18,14 @@ class FireStoreDatabase {
       },
     );
   }
+
+  /// Method to get data from firebase database
+  Rx<Stream<QuerySnapshot>> getItems(String name) {
+    return Rx(_firebaseFirestore.collection(name).snapshots());
+  }
+
+  /// Method to get data from firebase database, this is not reactive
+  // Future<Stream<QuerySnapshot>> getItems(String name) async {
+  //   return _firebaseFirestore.collection(name).snapshots();
+  // }
 }
