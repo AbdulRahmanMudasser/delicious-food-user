@@ -14,12 +14,16 @@ class DetailPage extends GetView<DetailPageController> {
     required this.itemName,
     required this.itemDescription,
     required this.itemPrice,
+    required this.deliveryTime,
+    required this.itemKeywords,
   });
 
   final String itemImage;
   final String itemName;
   final String itemDescription;
   final String itemPrice;
+  final String deliveryTime;
+  final String itemKeywords;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +45,7 @@ class DetailPage extends GetView<DetailPageController> {
                   child: const Icon(Icons.arrow_back_ios_new),
                 ),
               ),
-              Image.asset(
+              Image.network(
                 itemImage,
                 height: 35.0.hp,
                 width: 80.0.wp,
@@ -96,13 +100,28 @@ class DetailPage extends GetView<DetailPageController> {
                   ),
                 ],
               ),
+
+              SizedBox(
+                height:0.5.hp,
+              ),
+
+              Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  itemKeywords,
+                  style: AppTextStyles.boldDarkSmallTextStyle(),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+
               SizedBox(
                 height: 3.0.hp,
               ),
               Text(
                 itemDescription,
                 style: AppTextStyles.boldLightSmallTextStyle(),
-                maxLines: 6,
+                maxLines: 8,
                 overflow: TextOverflow.ellipsis,
               ),
               SizedBox(
@@ -123,10 +142,10 @@ class DetailPage extends GetView<DetailPageController> {
                         size: 6.0.wp,
                       ),
                       SizedBox(
-                        width: 6.0.wp,
+                        width: 2.0.wp,
                       ),
                       Text(
-                        "30 min",
+                        "$deliveryTime min",
                         style: AppTextStyles.boldDarkSmallTextStyle().copyWith(fontSize: 12.0.sp),
                       ),
                     ],
@@ -144,11 +163,9 @@ class DetailPage extends GetView<DetailPageController> {
                         "Total Price",
                         style: AppTextStyles.boldDarkSmallTextStyle(),
                       ),
-                      Obx(
-                        () => Text(
-                          "\$${controller.totalPrice.value}",
+                      Text(
+                          "\$$itemPrice",
                           style: AppTextStyles.boldDarkLargeTextStyle(),
-                        ),
                       ),
                     ],
                   ),

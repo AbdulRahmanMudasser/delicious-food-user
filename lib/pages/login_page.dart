@@ -138,19 +138,20 @@ class LoginPage extends GetView<AuthenticationController> {
                       const Spacer(),
 
                       // login button
-                      ReusableButton(
-                        text: "LOGIN",
-                        onTap: () async {
-                          controller.closeKeyboard();
+                      Obx(() => ReusableButton(
+                            text: "LOGIN",
+                            isLoading: controller.isLoading.value,
+                            onTap: () async {
+                              controller.closeKeyboard();
 
-                          if (_formKey.currentState!.validate()) {
-                            controller.loginUser(
-                              controller.loginEmailController.text,
-                              controller.loginPasswordController.text,
-                            );
-                          }
-                        },
-                      ),
+                              if (_formKey.currentState!.validate()) {
+                                controller.loginUser(
+                                  controller.loginEmailController.text,
+                                  controller.loginPasswordController.text,
+                                );
+                              }
+                            },
+                          )),
                     ],
                   ),
                 ),
@@ -164,12 +165,13 @@ class LoginPage extends GetView<AuthenticationController> {
             right: 0,
             bottom: 20.0.hp,
             child: AuthenticationPromptRow(
-                firstText: "Don't have an account?",
-                secondText: "Sign Up",
-                onTap: () {
-                  controller.closeKeyboard();
-                  Get.to(() => SignUpPage());
-                }),
+              firstText: "Don't have an account?",
+              secondText: "Sign Up",
+              onTap: () {
+                controller.closeKeyboard();
+                Get.to(() => SignUpPage());
+              },
+            ),
           ),
         ],
       ),

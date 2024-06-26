@@ -1,10 +1,9 @@
+import 'package:delicious_food/controllers/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:delicious_food/utils/extensions.dart';
 
-import '../../controllers/categories_controller.dart';
-
-class CategoriesRow extends GetView<CategoriesController> {
+class CategoriesRow extends GetView<HomeController> {
   const CategoriesRow({
     super.key,
   });
@@ -19,6 +18,7 @@ class CategoriesRow extends GetView<CategoriesController> {
           return GestureDetector(
             onTap: () {
               controller.selectedCategoryIndex.value = index;
+              controller.fetchIndexedBasedStream(controller.selectedCategoryIndex);
             },
             child: Obx(
               () => Material(

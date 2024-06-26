@@ -115,6 +115,8 @@ class AuthenticationController extends GetxController {
       // navigate to home page
       Get.offAll(() => const CurvedBottomNavigationBar());
     } on FirebaseAuthException catch (exception) {
+      isLoading.value = false;
+
       if (exception.code == 'user-not-found') {
         SnackBarUtils.showErrorSnackBar("Error", "No User Found With That Email");
       } else if (exception.code == 'wrong-password') {
