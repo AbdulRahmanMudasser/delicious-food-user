@@ -96,7 +96,7 @@ class ItemVerticalCard extends StatelessWidget {
                       height: 0.5.hp,
                     ),
                     Text(
-                      "\$$itemPrice",
+                      "\$${itemPrice.toString()}",
                       style: AppTextStyles.boldDarkMediumTextStyle().copyWith(
                         fontSize: 13.5.sp,
                       ),

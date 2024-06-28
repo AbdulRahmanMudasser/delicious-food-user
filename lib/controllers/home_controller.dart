@@ -13,8 +13,8 @@ class HomeController extends GetxController {
   final FireStoreDatabase _fireStoreDatabase = FireStoreDatabase();
 
   _onLoad() async {
-    getVerticalItemsStream.value = await _fireStoreDatabase.getItems("salad").value;
-    getHorizontalItemsStream.value = await _fireStoreDatabase.getItems("pizza").value;
+    getVerticalItemsStream.value = _fireStoreDatabase.getItems("salad").value;
+    getHorizontalItemsStream.value = _fireStoreDatabase.getItems("pizza").value;
   }
 
   @override
@@ -31,7 +31,7 @@ class HomeController extends GetxController {
     "assets/images/burger.png",
   ].obs;
 
-  RxInt selectedCategoryIndex = 1.obs;
+  RxInt selectedCategoryIndex = 0.obs;
 
   fetchIndexedBasedStream(RxInt index) async {
     switch (index.value) {
