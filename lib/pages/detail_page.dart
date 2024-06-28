@@ -27,6 +27,8 @@ class DetailPage extends GetView<DetailPageController> {
 
   @override
   Widget build(BuildContext context) {
+    controller.setProductPrice(double.parse(itemPrice));
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -100,11 +102,9 @@ class DetailPage extends GetView<DetailPageController> {
                   ),
                 ],
               ),
-
               SizedBox(
-                height:0.5.hp,
+                height: 0.5.hp,
               ),
-
               Align(
                 alignment: Alignment.topLeft,
                 child: Text(
@@ -114,7 +114,6 @@ class DetailPage extends GetView<DetailPageController> {
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
-
               SizedBox(
                 height: 3.0.hp,
               ),
@@ -163,9 +162,11 @@ class DetailPage extends GetView<DetailPageController> {
                         "Total Price",
                         style: AppTextStyles.boldDarkSmallTextStyle(),
                       ),
-                      Text(
-                          "\$$itemPrice",
+                      Obx(
+                        () => Text(
+                          "\$${controller.totalPrice.value.toStringAsFixed(2)}",
                           style: AppTextStyles.boldDarkLargeTextStyle(),
+                        ),
                       ),
                     ],
                   ),
