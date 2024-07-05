@@ -1,7 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:delicious_food/controllers/detail_page_controller.dart';
 import 'package:delicious_food/styles/app_text_styles.dart';
 import 'package:delicious_food/utils/extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 import '../widgets/detail page/add_to_cart_button.dart';
@@ -36,22 +38,35 @@ class DetailPage extends GetView<DetailPageController> {
             left: 4.0.wp,
             right: 4.0.wp,
             bottom: 1.0.hp,
-            top: 1.0.hp,
+            // top: 1.0.hp,
           ),
           child: Column(
             children: [
               Align(
                 alignment: Alignment.topLeft,
-                child: GestureDetector(
-                  onTap: () => Get.back(),
-                  child: const Icon(Icons.arrow_back_ios_new),
+                child: IconButton(
+                  onPressed: () => Get.back(),
+                  icon: const Icon(Icons.arrow_back_ios),
                 ),
               ),
-              Image.network(
-                itemImage,
+              CachedNetworkImage(
+                imageUrl: itemImage,
                 height: 35.0.hp,
                 width: 80.0.wp,
                 fit: BoxFit.contain,
+                placeholder: (context, url) => Center(
+                  child: SizedBox(
+                    height: 4.0.hp,
+                    width: 8.0.wp,
+                    child: const CircularProgressIndicator(
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+                errorWidget: (context, url, error) => const Icon(
+                  Icons.warning_amber,
+                  color: Colors.black,
+                ),
               ),
               SizedBox(
                 height: 3.0.hp,
@@ -62,7 +77,7 @@ class DetailPage extends GetView<DetailPageController> {
                   Align(
                     alignment: Alignment.topLeft,
                     child: SizedBox(
-                      width: Get.width / 2,
+                      width: Get.width / 1.9,
                       child: Text(
                         itemName,
                         softWrap: true,

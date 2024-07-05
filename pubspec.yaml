@@ -36,15 +36,16 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
 
-  get: ^4.6.6
-  curved_navigation_bar: ^1.0.3
-  firebase_core: ^2.27.2
-  firebase_auth: ^4.18.0
-  cloud_firestore: ^4.15.10
-  flutter_stripe: ^10.1.1
-  http: ^1.2.1
-  random_string: ^2.3.1
-  shared_preferences: ^2.2.2
+  get: ^4.6.6                           # state management solution
+  curved_navigation_bar: ^1.0.3         # customizable bottom navigation bar with curved design
+  firebase_core: ^2.27.2                # firebase core functionality for initializing firebase services
+  firebase_auth: ^4.18.0                # firebase authentication services
+  cloud_firestore: ^4.15.10             # firebase cloud firestore database sdk
+  flutter_stripe: ^10.1.1               # stripe api integration
+  http: ^1.2.1                          # http client for making network requests
+  random_string: ^2.3.1                 # library for generating random strings
+  shared_preferences: ^2.2.2            # plugin for persistent storage
+  cached_network_image: ^3.3.1          # plugin for caching images locally
 
 dev_dependencies:
   flutter_test:
@@ -85,9 +86,9 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-   - family: Poppins
-     fonts:
-       - asset: assets/fonts/Poppins-SemiBold.ttf
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-SemiBold.ttf
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
