@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:delicious_food/utils/extensions.dart';
 import 'package:flutter/material.dart';
 
@@ -33,11 +34,24 @@ class OrderProductCard extends StatelessWidget {
           // Product Image
           ClipRRect(
             borderRadius: BorderRadius.circular(4.0.wp),
-            child: Image.network(
-              productImage,
+            child: CachedNetworkImage(
+              imageUrl: productImage,
               height: 10.0.hp,
               width: 22.5.wp,
-              fit: BoxFit.scaleDown,
+              fit: BoxFit.contain,
+              placeholder: (context, url) => Center(
+                child: SizedBox(
+                  height: 4.0.hp,
+                  width: 8.0.wp,
+                  child: const CircularProgressIndicator(
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+              errorWidget: (context, url, error) => const Icon(
+                Icons.warning_amber,
+                color: Colors.black,
+              ),
             ),
           ),
           SizedBox(

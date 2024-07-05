@@ -10,6 +10,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 
+import 'widgets/curved_bottom_navigation_bar.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -50,9 +52,9 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             theme: ThemeData(useMaterial3: true),
             getPages: AppRoutes.routes,
-            // home: CurvedBottomNavigationBar(),
+            home: CurvedBottomNavigationBar(),
             // initialRoute: RoutesName.HOME,
-            initialRoute: userExists ? RoutesName.LOGIN : RoutesName.INITIAL,
+            // initialRoute: userExists ? RoutesName.LOGIN : RoutesName.INITIAL,
             initialBinding: ControllersBindings(),
           );
         }

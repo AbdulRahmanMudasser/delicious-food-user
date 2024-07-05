@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:delicious_food/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -63,11 +64,21 @@ class ItemVerticalCard extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(4.0.wp),
                   ),
-                  child: Image.network(
-                    itemImage,
+                  child: CachedNetworkImage(
+                    imageUrl: itemImage,
                     fit: BoxFit.contain,
-                    // height: 15.0.hp,
-                    // width: 20.0.wp,
+                    key: UniqueKey(),
+                    placeholder: (context, url) => SizedBox(
+                      height: 4.0.hp,
+                      width: 8.0.wp,
+                      child: const CircularProgressIndicator(
+                        color: Colors.black,
+                      ),
+                    ),
+                    errorWidget: (context, url, error) => const Icon(
+                      Icons.warning_amber,
+                      color: Colors.black,
+                    ),
                   ),
                 ),
                 SizedBox(
