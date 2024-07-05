@@ -170,8 +170,11 @@ class DetailPage extends GetView<DetailPageController> {
                       ),
                     ],
                   ),
-                  AddToCartButton(
-                    onTap: () {},
+                  Obx(
+                    () => AddToCartButton(
+                      onTap: () => controller.uploadUserCartDetails(itemName, itemImage),
+                      isLoading: controller.isLoading.value,
+                    ),
                   ),
                 ],
               ),

@@ -37,4 +37,13 @@ class AppTextStyles {
       fontWeight: FontWeight.w500,
     );
   }
+
+  static TextStyle boldLightLargeTextStyle() {
+    return TextStyle(
+      fontFamily: 'Poppins',
+      fontSize: 16.0.sp,
+      color: Colors.white,
+      fontWeight: FontWeight.bold,
+    );
+  }
 }

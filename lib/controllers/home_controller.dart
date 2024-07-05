@@ -12,9 +12,9 @@ class HomeController extends GetxController {
 
   final FireStoreDatabase _fireStoreDatabase = FireStoreDatabase();
 
-  _onLoad() async {
+  _onLoad() {
     getVerticalItemsStream.value = _fireStoreDatabase.getItems("salad").value;
-    getHorizontalItemsStream.value = _fireStoreDatabase.getItems("pizza").value;
+    getHorizontalItemsStream.value = _fireStoreDatabase.getItems("ice-cream").value;
   }
 
   @override

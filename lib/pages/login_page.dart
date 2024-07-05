@@ -138,20 +138,22 @@ class LoginPage extends GetView<AuthenticationController> {
                       const Spacer(),
 
                       // login button
-                      Obx(() => ReusableButton(
-                            text: "LOGIN",
-                            isLoading: controller.isLoading.value,
-                            onTap: () async {
-                              controller.closeKeyboard();
+                      Obx(
+                        () => ReusableButton(
+                          text: "LOGIN",
+                          isLoading: controller.isLoading.value,
+                          onTap: () async {
+                            controller.closeKeyboard();
 
-                              if (_formKey.currentState!.validate()) {
-                                controller.loginUser(
-                                  controller.loginEmailController.text,
-                                  controller.loginPasswordController.text,
-                                );
-                              }
-                            },
-                          )),
+                            if (_formKey.currentState!.validate()) {
+                              controller.loginUser(
+                                controller.loginEmailController.text,
+                                controller.loginPasswordController.text,
+                              );
+                            }
+                          },
+                        ),
+                      ),
                     ],
                   ),
                 ),
