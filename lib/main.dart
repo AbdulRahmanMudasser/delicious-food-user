@@ -50,8 +50,9 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             theme: ThemeData(useMaterial3: true),
             getPages: AppRoutes.routes,
-            initialRoute: RoutesName.HOME,
-            // initialRoute: userExists ? RoutesName.LOGIN : RoutesName.INITIAL,
+            // home: CurvedBottomNavigationBar(),
+            // initialRoute: RoutesName.HOME,
+            initialRoute: userExists ? RoutesName.LOGIN : RoutesName.INITIAL,
             initialBinding: ControllersBindings(),
           );
         }

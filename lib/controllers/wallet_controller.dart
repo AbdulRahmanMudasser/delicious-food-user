@@ -30,11 +30,9 @@ class WalletController extends GetxController {
 
       _displayPaymentSheet(amount, paymentIntentData);
     } catch (exception) {
-      debugPrint(exception.toString());
+      debugPrint("Exception: ${exception.toString()}");
     }
   }
-
-
 
   Future _createPaymentIntent(String amount, String currency) async {
     try {
@@ -57,7 +55,7 @@ class WalletController extends GetxController {
 
       return jsonHttpResponseDecoded;
     } catch (exception) {
-      debugPrint(exception.toString());
+      debugPrint("Exception: ${exception.toString()}");
     }
   }
 
@@ -71,14 +69,15 @@ class WalletController extends GetxController {
         options: const PaymentSheetPresentOptions(),
       );
 
-      int newAmount = int.parse(wallet.value) + int.parse(amount);
-      wallet.value = newAmount.toString();
+      double newAmount = double.parse(wallet.value) + double.parse(amount);
+      wallet.value = newAmount.toStringAsFixed(2);
 
       await SharedPreferencesHelper.setUserWallet(wallet.value);
       await FireStoreDatabase().updateUserWallet(id.value, wallet.value);
 
       Get.dialog(
         AlertDialog(
+          backgroundColor: Colors.black,
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -86,10 +85,13 @@ class WalletController extends GetxController {
                 children: [
                   const Icon(
                     Icons.check_circle,
-                    color: Colors.green,
+                    color: Colors.white,
                   ),
                   addHorizontalSpace(1.5.wp),
-                  const Text("Payment Successful"),
+                  const Text(
+                    "Payment Successful",
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ],
               ),
             ],
@@ -99,13 +101,16 @@ class WalletController extends GetxController {
 
       await getWalletFromSharedPreferences();
     } catch (exception) {
-      debugPrint(exception.toString());
+      debugPrint("Exception: ${exception.toString()}");
     }
   }
 
   getWalletFromSharedPreferences() async {
-    id.value = (await SharedPreferencesHelper.getUserId()) ?? "0";
-    wallet.value = (await SharedPreferencesHelper.getUserWallet()) ?? "0";
+    id.value = (await SharedPreferencesHelper.getUserId()) ?? "0.0";
+    wallet.value = (await SharedPreferencesHelper.getUserWallet()) ?? "0.0";
+
+    debugPrint("User ID Fetched In Wallet Controller: ${id.value}");
+    debugPrint("User Wallet Fetched In Wallet Controller: ${wallet.value}");
   }
 
   @override
@@ -113,8 +118,4 @@ class WalletController extends GetxController {
     getWalletFromSharedPreferences();
     super.onInit();
   }
-
-  // openCustomAddMoney() {
-  //   AlertDialogs.inputAlertDialog(inputAmountController);
-  // }
 }

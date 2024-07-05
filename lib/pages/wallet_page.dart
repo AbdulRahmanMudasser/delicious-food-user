@@ -3,9 +3,11 @@ import 'package:delicious_food/styles/app_text_styles.dart';
 import 'package:delicious_food/utils/extensions.dart';
 import 'package:delicious_food/utils/methods/alert_dialogs.dart';
 import 'package:delicious_food/utils/methods/sized_box_utils.dart';
+import 'package:delicious_food/widgets/page_title.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../widgets/custom_button.dart';
 import '../widgets/wallet page/add_money_token.dart';
 
 class WalletPage extends GetView<WalletController> {
@@ -24,29 +26,12 @@ class WalletPage extends GetView<WalletController> {
             : Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Material(
-                    elevation: 2,
-                    child: Container(
-                      padding: EdgeInsets.symmetric(vertical: 1.5.hp),
-                      width: Get.width,
-                      child: Text(
-                        "Wallet",
-                        style: AppTextStyles.boldDarkLargeTextStyle().copyWith(
-                          fontSize: 17.6.sp,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 3.0.hp,
-                  ),
+                  SizedBox(height: 1.0.hp),
+                  const PageTitle(title: "Wallet"),
+                  SizedBox(height: 3.0.hp),
                   Container(
                     width: Get.width,
                     padding: EdgeInsets.symmetric(horizontal: 4.0.wp, vertical: 1.0.hp),
-                    decoration: const BoxDecoration(
-                      color: Color(0xFFF2F2F2),
-                    ),
                     child: Row(
                       children: [
                         Image.asset(
@@ -66,7 +51,7 @@ class WalletPage extends GetView<WalletController> {
                             addVerticalSpace(0.1.hp),
                             Obx(
                               () => Text(
-                                "\$${int.parse(controller.wallet.value)}",
+                                "\$${double.parse(controller.wallet.value).toStringAsFixed(2)}",
                                 style: AppTextStyles.boldDarkMediumTextStyle().copyWith(fontSize: 15.6.sp),
                               ),
                             ),
@@ -104,31 +89,13 @@ class WalletPage extends GetView<WalletController> {
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: 5.0.hp,
-                  ),
-                  GestureDetector(
+                  const Spacer(),
+                  CustomButton(
                     onTap: () => AlertDialogs.inputAlertDialog(),
-                    child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 6.0.wp),
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 1.5.wp,
-                        vertical: double.parse("1.5").hp,
-                      ),
-                      width: double.parse("100").wp,
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF008080),
-                        borderRadius: BorderRadius.circular(2.5.wp),
-                      ),
-                      child: Text(
-                        "Add Money",
-                        style: AppTextStyles.boldDarkMediumTextStyle().copyWith(
-                          color: Colors.white,
-                          fontSize: 4.2.wp,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
+                    text: "Add Money",
+                  ),
+                  SizedBox(
+                    height: 3.0.hp,
                   ),
                 ],
               ),
