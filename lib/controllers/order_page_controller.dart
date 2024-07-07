@@ -38,6 +38,7 @@ class OrderController extends GetxController {
   void checkout() async {
     try {
       _getUserInformation();
+      _getUserInformationFromFirestore();
 
       if (totalBill.value >= 0 && totalBill.value <= double.parse(wallet!)) {
         var checkoutAmount = double.parse(wallet!) - totalBill.value;
@@ -87,12 +88,24 @@ class OrderController extends GetxController {
   /// METHOD TO GET USER ID
   _getUserInformation() async {
     userId = await SharedPreferencesHelper.getUserId();
-    wallet = await SharedPreferencesHelper.getUserWallet();
+    // wallet = await SharedPreferencesHelper.getUserWallet();
 
     debugPrint("User ID: $userId");
-    debugPrint("Wallet: $wallet");
+    // debugPrint("Wallet: $wallet");
 
+    _getUserInformationFromFirestore();
     _onLoad();
+  }
+
+  /// METHOD TO GET USER INFORMATION FROM FIRESTORE
+  Future _getUserInformationFromFirestore() async {
+    Map<String, dynamic>? userInfo =  await FireStoreDatabase().getUserInformation(userId!);
+
+    if (userInfo != null) {
+      wallet = userInfo["Wallet"];
+    } else {
+      debugPrint("User Not Found");
+    }
   }
 
   // METHOD TO FETCH ORDER STREAM

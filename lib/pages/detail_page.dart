@@ -3,7 +3,6 @@ import 'package:delicious_food/controllers/detail_page_controller.dart';
 import 'package:delicious_food/styles/app_text_styles.dart';
 import 'package:delicious_food/utils/extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 import '../widgets/detail page/add_to_cart_button.dart';

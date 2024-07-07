@@ -40,6 +40,9 @@ class AuthenticationController extends GetxController {
   // loading indicator
   RxBool isLoading = false.obs;
 
+  /// Store User Credentials
+  UserCredential? userCredential;
+
   // method to register user in firebase
   Future<void> registerUser(String name, String email, String password) async {
     try {
@@ -47,10 +50,12 @@ class AuthenticationController extends GetxController {
       isLoading.value = true;
 
       // saving credentials after registering user
-      UserCredential userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
+      UserCredential userCred = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
+
+      userCredential = userCred;
 
       // displaying success snack bar
       SnackBarUtils.showSuccessSnackBar("Success", "Registered Successfully");

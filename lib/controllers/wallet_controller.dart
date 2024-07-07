@@ -107,15 +107,28 @@ class WalletController extends GetxController {
 
   getWalletFromSharedPreferences() async {
     id.value = (await SharedPreferencesHelper.getUserId()) ?? "0.0";
-    wallet.value = (await SharedPreferencesHelper.getUserWallet()) ?? "0.0";
+    // wallet.value = (await SharedPreferencesHelper.getUserWallet()) ?? "0.0";
 
     debugPrint("User ID Fetched In Wallet Controller: ${id.value}");
-    debugPrint("User Wallet Fetched In Wallet Controller: ${wallet.value}");
+    // debugPrint("User Wallet Fetched In Wallet Controller: ${wallet.value}");
+
+    _getUserInformationFromFirestore();
+  }
+
+  /// METHOD TO GET USER WALLET FROM FIRESTORE
+  Future _getUserInformationFromFirestore() async {
+    Map<String, dynamic>? userInfo =  await FireStoreDatabase().getUserInformation(id.value);
+
+    if (userInfo != null) {
+      wallet.value = userInfo["Wallet"];
+    } else {
+      debugPrint("User Not Found");
+    }
   }
 
   @override
   void onInit() {
-    getWalletFromSharedPreferences();
     super.onInit();
+    getWalletFromSharedPreferences();
   }
 }
