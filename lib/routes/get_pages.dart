@@ -1,8 +1,11 @@
 import 'package:delicious_food/pages/home_page.dart';
 import 'package:delicious_food/pages/login_page.dart';
+import 'package:delicious_food/pages/notifications_page.dart';
 import 'package:delicious_food/pages/onboard_page.dart';
 import 'package:delicious_food/pages/order_page.dart';
+import 'package:delicious_food/pages/profile_page.dart';
 import 'package:delicious_food/pages/signup_page.dart';
+import 'package:delicious_food/pages/terms_and_conditions_page.dart';
 import 'package:delicious_food/pages/wallet_page.dart';
 import 'package:get/get.dart';
 
@@ -33,6 +36,18 @@ class AppRoutes {
     GetPage(
       name: RoutesName.ORDER,
       page: () => const OrderPage(),
+    ),
+    GetPage(
+      name: RoutesName.PROFILE,
+      page: () => const ProfilePage(),
+    ),
+    GetPage(
+      name: RoutesName.NOTIFICATIONS,
+      page: () => const NotificationsPage(),
+    ),
+    GetPage(
+      name: RoutesName.TERMSCONDITIONS,
+      page: () => const TermsConditionsPage(),
     ),
   ];
 }

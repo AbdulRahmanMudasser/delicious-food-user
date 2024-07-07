@@ -40,14 +40,25 @@ class FireStoreDatabase {
   }
 
   /// METHOD TO DELETE ALL CART ITEMS FOR A SPECIFIC USER
-  Future deleteAllCartItems(String userId) async {
+  Future deleteAllCartItems(String userID) async {
     // Get all cart documents
     QuerySnapshot cartSnapshot =
-        await _firebaseFirestore.collection("users").doc(userId).collection("cart").get();
+        await _firebaseFirestore.collection("users").doc(userID).collection("cart").get();
 
     // Loop through all documents and delete them
     for (QueryDocumentSnapshot doc in cartSnapshot.docs) {
       await doc.reference.delete();
+    }
+  }
+
+  /// METHOD TO GET USER NAME, WALLET FROM FIREBASE DATABASE
+  Future<Map<String, dynamic>?> getUserInformation(String userID) async {
+    DocumentSnapshot documentSnapshot = await _firebaseFirestore.collection("users").doc(userID).get();
+
+    if (documentSnapshot.exists) {
+      return documentSnapshot.data() as Map<String, dynamic>;
+    } else {
+      return null;
     }
   }
 }

@@ -7,5 +7,7 @@ class RoutesName {
   static const ORDER = "/order";
   static const WALLET = "/wallet";
   static const DETAIL = "/detail";
-  // static const ONBOARD = "/onboard";
+  static const PROFILE = "/profile";
+  static const NOTIFICATIONS = "/notifications";
+  static const TERMSCONDITIONS = "/terms_conditions";
 }
